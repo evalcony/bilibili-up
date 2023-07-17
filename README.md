@@ -6,9 +6,26 @@
 - 个人模式（根据nickname拉取指定up主的投稿）
 
 参数
+- h: 查看帮助。
 - d: 近d天内的投稿。默认=3。当=-1时表示不限制。
 - n: 每人最多显示投稿条数。默认=3。当=-1时表示不限制。
 - name: 拉取指定nickname up主的投稿。当用此参数时，-d -n 默认为-1
 - a: 标题长度缩略开关。默认开启。长度默认30。
 
 默认数值都配置在config.ini文件中
+
+### 使用方式
+个人模式
+```commandline
+python3 main.py --name nickname
+```
+这里 nickname 指的就是 config.ini中 bilibili-focus 的 key
+在全选模式中，会在up主的名字后用(nickname)包裹。
+--name 是必选的，只有用 --name 才能使用个人模式。
+个人模式下，如果不加 -d, -n 参数，默认会将暂时无效。
+
+全选模式
+```commandline
+python3 main.py -d 10 -n 5
+```
+其中，-d, -n, -a, 都是可选的。有默认值。
