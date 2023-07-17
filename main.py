@@ -73,7 +73,16 @@ def bilibili_json_process(str_data, args):
             print(v)
         print('')
 
+def print_all_nickname():
+    name_list = focus_map.keys()
+    print(name_list)
+
 def work(args):
+
+    if args.l:
+        print_all_nickname()
+        return
+
     if args.name != '':
         url = focus_map.get(args.name)
         if url == None:
@@ -99,6 +108,7 @@ if __name__ == '__main__':
     parser.add_argument('-name', type=str, default='', help='获得特定nickname用户的视频列表')
 
     parser.add_argument('-a', action='store_true', help='标题缩略,长度默认'+str(DEFAULT_TITLE_LEN))
+    parser.add_argument('-l', action='store_true', help='查看所有的 nickname')
     args = parser.parse_args()
 
     work(args)
