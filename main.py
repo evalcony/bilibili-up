@@ -25,6 +25,7 @@ class HttpThread(threading.Thread):
         res = get_data(focus_map.get(self.name))
         self.args.name = self.name
         bilibili_json_process(res, self.args)
+
 def get_data(url):
     header = {
         "Cookie": cookie,
@@ -43,15 +44,11 @@ def bilibili_json_process(str_data, args):
     vlist = html_json['data']['list']['vlist']
 
     # 参数处理
+    size = len(vlist)
     if num != -1:
         size = num if len(vlist) > num else len(vlist)
-    else:
-        size = len(vlist)
 
-    if before_day_delta != -1:
-        before_day_switch = True
-    else:
-        before_day_switch = False
+    before_day_switch = False if before_day_delta == -1 else True
 
     res = []
     before_date = utils.before_date_from_now(delta=before_day_delta).strftime("%Y-%m-%d")
