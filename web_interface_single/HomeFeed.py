@@ -40,7 +40,12 @@ class HomeFeed:
             owner = item['owner']['name']
             view = item['stat']['view']
 
-            res_list.append(owner + ' ' + utils.num_shorten(view) + ' ' + title + ' ' + uri)
+            res_list.append({
+                'owner': owner,
+                'view': utils.num_shorten(view),
+                'title': title,
+                'uri': uri,
+            })
 
         data = {
             'list': res_list,

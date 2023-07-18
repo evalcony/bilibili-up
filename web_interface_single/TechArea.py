@@ -53,18 +53,19 @@ class TechArea:
             owner = item['owner']['name']
             view = item['stat']['view']
 
-            res_list.append(owner + ' ' + str(view) + ' ' + title + ' ' + uri)
+            res_list.append({
+                'owner': owner,
+                'view': utils.num_shorten(view),
+                'title': title,
+                'uri': uri,
+            })
 
         page = html_json['data']['page']
-        num = page['num']
-        size = page['size']
-        count = page['count']
-
-        self.total_page = utils.total_page(count, size)
+        self.total_page = utils.total_page(page['count'], page['size'])
 
         data = {
             'list': res_list,
-            'num': num,
+            'num': page['num'],
             'total_page': self.total_page,
         }
 

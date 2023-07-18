@@ -1,5 +1,7 @@
 import sys
 
+from tabulate import tabulate
+
 import utils
 from web_interface_single.HomeFeed import HomeFeed
 from web_interface_single.TechArea import TechArea
@@ -47,15 +49,23 @@ class Feed:
     def get_type_list(self):
         return self.serv_map.keys()
 
-def my_func(wi, type, url_page_num):
+def processor(wi, type, url_page_num):
 
     html_data = wi.get_data_by_type(type, url_page_num)
     data = wi.parse_data_by_type(type, html_data)
 
-    for v in data['list']:
-        print(v)
+    for i in range(len(data['list'])):
+        title = data['list'][i]['title']
+        title = title[:30] if len(title) > 30 else title
+        data['list'][i]['title'] = title
+
+    # 格式化输出
+    print(tabulate(data['list'], tablefmt="plain"))
+    # for v in data['list']:
+    #     formatter(v)
     print('['+ str(data['num'])+'/'+str(data['total_page']) +']')
     print()
+
 
 def chose_mode():
     feed = Feed()
@@ -72,7 +82,7 @@ def chose_mode():
             type = params[1]
             url_page_num = 1
             while True:
-                my_func(feed, type, url_page_num)
+                processor(feed, type, url_page_num)
                 url_page_num += 1
 
                 params = cmd_lv2()
