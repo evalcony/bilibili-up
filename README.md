@@ -16,6 +16,8 @@
 默认数值都配置在config.ini文件中
 
 ### 使用方式
+首先在 config.ini 中配置好关注的 up 主数据获取 api（[例如去这个页面](https://space.bilibili.com/242649949/video)，然后进入浏览器控制台，搜索 api.bilibili.com/x/space/wbi/arc/search 即可。）
+
 个人模式
 ```commandline
 python3 main.py --name nickname
