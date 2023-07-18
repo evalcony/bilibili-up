@@ -7,6 +7,9 @@ import utils
 
 
 class TechArea:
+    def __init__(self):
+        config = utils.read_config('config.ini')
+        self.feed_page_size = int(config['cfg']['feed_page_size'])
 
     def set_url(self, url):
         self.url = url
@@ -18,7 +21,7 @@ class TechArea:
             page_num = self.total_page
         return {
             "pn": page_num,
-            "ps": 15,
+            "ps": self.feed_page_size,
             "rid": self._get_rid_by_type(type),
         }
 

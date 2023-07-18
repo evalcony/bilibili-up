@@ -7,6 +7,9 @@ from web_interface_single.Wbi import generate_url
 
 
 class HomeFeed:
+    def __init__(self):
+        config = utils.read_config('config.ini')
+        self.feed_page_size = int(config['cfg']['feed_page_size'])
 
     def set_url(self, url):
         self.url = url
@@ -17,7 +20,7 @@ class HomeFeed:
             'web_location':1430650,
             'fresh_idx':page_num,
             'brush':page_num,
-            'ps':20,
+            'ps':self.feed_page_size,
             'uniq_id':1171486254368,
         }
 
