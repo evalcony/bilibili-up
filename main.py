@@ -59,12 +59,13 @@ def bilibili_json_process(str_data, args):
 
         if not before_day_switch or before_date < create_date:
             url = 'https://www.bilibili.com/video/' + v['bvid']
+            play = v['play']
             title = v['title']
             title = title.replace(" ", "")
             if not title_show_all_flag:
                 max_title_len = len(title) if len(title) < DEFAULT_TITLE_LEN else DEFAULT_TITLE_LEN
                 title = title[:max_title_len]
-            res.append(create_date + ' ' + title + ' ' + url)
+            res.append(create_date + ' ' + utils.num_shorten(play) + ' ' + title + ' ' + url)
         else:
             break
     if len(res):

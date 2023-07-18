@@ -25,3 +25,12 @@ def before_date_from_now(delta=10):
     d = timedelta(delta)
     r = date - d
     return r.date()
+
+def num_shorten(num):
+    if num < 10000:
+        return str(num)
+    if num < 1e8:
+        return str(int(num / 10000)) + '万'
+    e = int(num / 1e8)
+    w = int((num - e * 1e8)/10000)
+    return str(e)+'亿'+str(w)+'万'
