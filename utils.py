@@ -34,3 +34,10 @@ def num_shorten(num):
     e = int(num / 1e8)
     w = int((num - e * 1e8)/10000)
     return str(e)+'亿'+str(w)+'万'
+
+def total_page(count, page_size):
+    if count % page_size != 0:
+        total_page = int(count / page_size) + 1
+    else:
+        total_page = int(count / page_size)
+    return total_page

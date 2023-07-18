@@ -2,6 +2,7 @@ import json
 
 import requests
 
+import utils
 from web_interface_single.Wbi import generate_url
 
 
@@ -10,18 +11,21 @@ class HomeFeed:
     def set_url(self, url):
         self.url = url
 
-    def page_param(self, page_num):
+    def page_param(self, type, page_num):
+        self.page_num = page_num
         return {
             'web_location':1430650,
             'fresh_idx':page_num,
-            'brush':1,
+            'brush':page_num,
             'ps':20,
             'uniq_id':1171486254368,
         }
 
     def make_request(self, *param):
         query = generate_url(param[0])
-        response = requests.get(self.url+'?'+query)
+        url = self.url+'?'+query
+        print(url)
+        response = requests.get(url)
         return response.text
 
     def parse(self, html_data):
@@ -36,6 +40,12 @@ class HomeFeed:
             owner = item['owner']['name']
             view = item['stat']['view']
 
-            res_list.append(owner + ' ' + str(view) + ' ' + title + ' ' + uri)
+            res_list.append(owner + ' ' + utils.num_shorten(view) + ' ' + title + ' ' + uri)
 
-        return res_list
+        data = {
+            'list': res_list,
+            'num': self.page_num,
+            'total_page': -1,
+        }
+
+        return data

@@ -40,14 +40,6 @@ def get_data(mid):
     response = requests.get('https://api.bilibili.com/x/space/wbi/arc/search?'+query, headers=header)
     return response.text
 
-# def get_data(url):
-#     header = {
-#         "Cookie": cookie,
-#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45",
-#     }
-#     response = requests.get(url, headers=header)
-#     return response.text
-
 def bilibili_json_process(str_data, args):
     nickname = args.name
     num = args.n
