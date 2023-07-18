@@ -46,8 +46,11 @@ class Feed:
     def parse_data_by_type(self, type, html_data):
         return self.serv_map[type].parse(html_data)
 
-    def get_type_list(self):
-        return self.serv_map.keys()
+    def print_types(self):
+        i = 1
+        for type in self.serv_map.keys():
+            print('{}.{}'.format(i, type))
+            i += 1
 
 def processor(wi, type, url_page_num):
 
@@ -77,7 +80,7 @@ def chose_mode():
             print('bye bye')
             return
         elif params[0] == '-l':
-            print(feed.get_type_list())
+            feed.print_types()
         elif params[0] == '-name' and params[1] != '':
             type = params[1]
             url_page_num = 1

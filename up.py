@@ -1,8 +1,8 @@
 import argparse
+import json
 import threading
 
 import requests
-import json
 
 import utils
 from web_interface_single import Wbi
@@ -82,7 +82,10 @@ def bilibili_json_process(str_data, args):
 
 def print_all_nickname():
     name_list = focus_map.keys()
-    print(name_list)
+    i = 1
+    for name in name_list:
+        print('{}.{}'.format(i, name))
+        i += 1
 
 def work(args):
 
