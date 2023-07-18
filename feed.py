@@ -3,6 +3,7 @@ import sys
 from tabulate import tabulate
 
 import utils
+from CacheThread import CacheThread
 from web_interface_single.HomeFeed import HomeFeed
 from web_interface_single.TechArea import TechArea
 
@@ -12,6 +13,8 @@ class Feed:
         self.bilibili_feed_map = utils.read_config('config.ini')['bilibili-feed']
 
         self._init_service()
+        # 缓存
+        self.cache = {}
 
     def _init_service(self):
         serv_map = {}
@@ -52,10 +55,20 @@ class Feed:
             print('{}.{}'.format(i, type))
             i += 1
 
-def processor(wi, type, url_page_num):
+    def do_pre_cache(self, type, url_page_num):
+        cache_thead = CacheThread(self, type, url_page_num)
+        cache_thead.start()
 
-    html_data = wi.get_data_by_type(type, url_page_num)
-    data = wi.parse_data_by_type(type, html_data)
+def processor(feed, type, url_page_num):
+
+    # 直接读取缓存
+    if feed.cache == {}:
+        html_data = feed.get_data_by_type(type, url_page_num)
+        data = feed.parse_data_by_type(type, html_data)
+    else:
+        data = feed.cache
+    # 缓存预读 异步读取数据，缓存入 feed.cache 中
+    feed.do_pre_cache(type=type, url_page_num=url_page_num+1)
 
     for i in range(len(data['list'])):
         title = data['list'][i]['title']
@@ -64,8 +77,6 @@ def processor(wi, type, url_page_num):
 
     # 格式化输出
     print(tabulate(data['list'], tablefmt="plain"))
-    # for v in data['list']:
-    #     formatter(v)
     print('['+ str(data['num'])+'/'+str(data['total_page']) +']')
     print()
 
@@ -122,6 +133,8 @@ def cmd_lv2():
 
         params = sys.stdin.readline().split()
 
+        if len(params) == 0:
+            continue
         if params[0] == '-l' or params[0] == '-q' or params[0] == '-r' or params[0] == '-n':
             return params
 
