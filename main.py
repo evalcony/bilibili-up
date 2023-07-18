@@ -5,6 +5,7 @@ import requests
 import json
 
 import utils
+from web_interface_single import Wbi
 
 # read config
 config = utils.read_config('config.ini')
@@ -26,13 +27,26 @@ class HttpThread(threading.Thread):
         self.args.name = self.name
         bilibili_json_process(res, self.args)
 
-def get_data(url):
+def get_data(mid):
+    query = Wbi.generate_url({
+        'mid':mid,
+        'ps':30,
+        'tid':0,
+    })
+
     header = {
-        "Cookie": cookie,
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45",
     }
-    response = requests.get(url, headers=header)
+    response = requests.get('https://api.bilibili.com/x/space/wbi/arc/search?'+query, headers=header)
     return response.text
+
+# def get_data(url):
+#     header = {
+#         "Cookie": cookie,
+#         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.97 Safari/537.36 Edg/83.0.478.45",
+#     }
+#     response = requests.get(url, headers=header)
+#     return response.text
 
 def bilibili_json_process(str_data, args):
     nickname = args.name
@@ -85,11 +99,11 @@ def work(args):
         return
 
     if args.name != '':
-        url = focus_map.get(args.name)
-        if url == None:
+        mid = focus_map.get(args.name)
+        if mid == None:
             print('参数错误 and 未找到数据')
             return
-        res = get_data(url)
+        res = get_data(mid)
         if args.n == DEFAULT_N:
             args.n = -1
         if args.d == DEFAULT_D:
