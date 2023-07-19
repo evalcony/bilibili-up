@@ -62,11 +62,11 @@ class Feed:
 def processor(feed, type, url_page_num):
 
     # 直接读取缓存
-    if feed.cache == {}:
+    if type not in feed.cache.keys() or feed.cache[type] == None:
         html_data = feed.get_data_by_type(type, url_page_num)
         data = feed.parse_data_by_type(type, html_data)
     else:
-        data = feed.cache
+        data = feed.cache[type]
     # 缓存预读 异步读取数据，缓存入 feed.cache 中
     feed.do_pre_cache(type=type, url_page_num=url_page_num+1)
 
