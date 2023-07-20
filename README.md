@@ -58,3 +58,17 @@ python3 up.py -d 10 -n 5
 ```
 
 其中，-d, -n, -a, 都是可选的。有默认值。
+
+# 演示图
+
+up.py 演示
+
+![](docs/image/pic1.png)
+
+![](docs/image/pic2.png)
+
+feed.py 演示
+
+![](docs/image/pic3.png)
+
+![](docs/image/pic4.png)
