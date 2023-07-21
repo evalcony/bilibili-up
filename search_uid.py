@@ -4,7 +4,10 @@ import requests
 from tabulate import tabulate
 
 import utils
+from colorize_output import Colorize
 from web_interface_single import Wbi
+
+colorizer = Colorize()
 
 def search_uid_req(uname):
     url = 'https://api.bilibili.com/x/web-interface/wbi/search/type'
@@ -39,7 +42,15 @@ def parse_text(html_text):
         }
         res_list.append(d)
 
-    print(tabulate(res_list, tablefmt="plain"))
+    # 颜色输出
+    colorizer.colorize_list(res_list)
+    # 格式化输出
+    headers = {
+        'uname': 'up主',
+        'mid': 'id',
+        'fans': '粉丝数',
+    }
+    print(tabulate(res_list, headers=headers, tablefmt="plaint"))
 
     return res['mid']
 

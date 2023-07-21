@@ -3,8 +3,10 @@ import json
 import threading
 
 import requests
+from tabulate import tabulate
 
 import utils
+from colorize_output import Colorize
 from web_interface_single import Wbi
 
 # read config
@@ -14,6 +16,8 @@ follow_map = dict(follow.items())
 DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
 DEFAULT_D = int(config['cfg']['default_d'])
 DEFAULT_N = int(config['cfg']['default_n'])
+
+colorizer = Colorize()
 
 class HttpThread(threading.Thread):
     def __init__(self, name, args):
@@ -70,20 +74,26 @@ def bilibili_json_process(str_data, args):
             if not title_show_all_flag:
                 max_title_len = len(title) if len(title) < DEFAULT_TITLE_LEN else DEFAULT_TITLE_LEN
                 title = title[:max_title_len]
-            res.append(create_date + ' ' + utils.num_shorten(play) + ' ' + title + ' ' + url)
+            r = {
+                'create_date': create_date,
+                'play': utils.num_shorten(play),
+                'title': title,
+                'url': url,
+            }
+            res.append(r)
         else:
             break
     if len(res):
-        print(author + '(' + nickname + ')')
-        for v in res:
-            print(v)
+        print(colorizer.colorize_text(author, 'author') + '(' + colorizer.colorize_text(nickname, 'nickname') + ')')
+        colorizer.colorize_list(res)
+        print(tabulate(res, tablefmt="plain"))
         print('')
 
 def print_all_nickname():
     name_list = follow_map.keys()
     i = 1
     for name in name_list:
-        print('{}.{}'.format(i, name))
+        print('{}.{}'.format(i, colorizer.colorize_text(name, 'name')))
         i += 1
 
 def work(args):

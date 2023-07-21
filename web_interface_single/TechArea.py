@@ -45,22 +45,21 @@ class TechArea:
         return response.text
 
     def parse(self, html_data):
-        # print(html_data)
         html_json = json.loads(html_data)
         archives = html_json['data']['archives']
         res_list = []
 
         for item in archives:
-            uri = item['short_link_v2']
+            url = item['short_link_v2']
             title = item['title']
-            owner = item['owner']['name']
+            name = item['owner']['name']
             view = item['stat']['view']
 
             res_list.append({
-                'owner': owner,
+                'name': name,
                 'view': utils.num_shorten(view),
                 'title': title,
-                'uri': uri,
+                'url': url,
             })
 
         page = html_json['data']['page']

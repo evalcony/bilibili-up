@@ -38,16 +38,16 @@ class HomeFeed:
         res_list = []
 
         for item in item_list:
-            uri = item['uri']
+            url = item['uri']
             title = item['title']
-            owner = item['owner']['name']
+            name = item['owner']['name']
             view = item['stat']['view']
 
             res_list.append({
-                'owner': owner,
+                'name': name,
                 'view': utils.num_shorten(view),
                 'title': title,
-                'uri': uri,
+                'url': url,
             })
 
         data = {

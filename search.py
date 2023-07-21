@@ -5,9 +5,13 @@ import requests
 from tabulate import tabulate
 
 import utils
+from colorize_output import Colorize
 from search_uid import get_uid
 from web_interface_single import Wbi
 
+
+# 输出颜色
+colorizer = Colorize()
 
 def search_req(mid, keyword):
 
@@ -58,9 +62,20 @@ def work(args):
         return
     if keyword == '':
         return
+
     html_text = search_req(mid, keyword)
     res_list = parse_result(html_text)
-    print(tabulate(res_list, tablefmt="plain"))
+
+    # 颜色输出
+    colorizer.colorize_list(res_list)
+    # 格式化输出
+    headers = {
+        'author': 'author',
+        'title': 'title',
+        'play': '播放量',
+        'url': 'url',
+    }
+    print(tabulate(res_list, headers=headers, tablefmt="plaint"))
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

@@ -4,9 +4,13 @@ from tabulate import tabulate
 
 import utils
 from CacheThread import CacheThread
+from colorize_output import Colorize
 from web_interface_single.HomeFeed import HomeFeed
 from web_interface_single.TechArea import TechArea
 
+
+# 输出颜色
+colorizer = Colorize()
 
 class Feed:
     def __init__(self):
@@ -75,11 +79,26 @@ def processor(feed, type, url_page_num):
         title = title[:30] if len(title) > 30 else title
         data['list'][i]['title'] = title
 
-    # 格式化输出
-    print(tabulate(data['list'], tablefmt="plain"))
-    print('['+ str(data['num'])+'/'+str(data['total_page']) +']')
-    print()
+    # # 输出颜色
+    # colorizer.colorize_list(data['list'])
+    #
+    # # 格式化输出
+    # print(tabulate(data['list'], tablefmt="plain"))
+    # print('['+ str(data['num'])+'/'+str(data['total_page']) +']')
+    # print()
 
+    # 颜色输出
+    colorizer.colorize_list(data['list'])
+    # 格式化输出
+    headers = {
+        'name': 'name',
+        'view': '播放量',
+        'title': 'title',
+        'url': 'url',
+    }
+    print(tabulate(data['list'], headers=headers, tablefmt="plaint"))
+    print('[' + str(data['num']) + '/' + str(data['total_page']) + ']')
+    print()
 
 def chose_mode():
     feed = Feed()
