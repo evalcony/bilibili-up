@@ -48,3 +48,19 @@ def total_page(count, page_size):
     else:
         total_page = int(count / page_size)
     return total_page
+
+def remove_highlight_html(text):
+    pattern = '<em class=\"keyword\">'
+    while True:
+        pos = text.find(pattern)
+        if pos == -1:
+            break
+        text = text[:pos]+text[pos+len(pattern):]
+
+    pattern = '</em>'
+    while True:
+        pos = text.find(pattern)
+        if pos == -1:
+            break
+        text = text[:pos] + text[pos + len(pattern):]
+    return text

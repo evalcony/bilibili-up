@@ -9,6 +9,7 @@
 - feed.py: 拉取 feed 流，也即首页、各分区页面数据
 - search.py: 根据 up 主名字/ up 主id、关键字，搜索 up 主相关投稿
 - favor.py: 查看个人收藏夹
+- search_all.py: 对所有投稿进行搜索，区别于search.py只针对指定up主进行搜索
 
 # 使用方法
 
@@ -66,6 +67,15 @@ python3 favor.py
 - -l: 个人收藏夹列表，收藏夹id
 - -f: 根据收藏夹id查看收藏夹内容
 - 如果不指定任何参数，则查看默认收藏夹
+
+### search_all.py
+
+```commandline
+python3 search_all.py
+```
+
+- -h: 查看帮助
+- -k: 搜索关键字
 
 
 # 示例
