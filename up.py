@@ -9,7 +9,6 @@ from web_interface_single import Wbi
 
 # read config
 config = utils.read_config('config.ini')
-cookie = config['cookie']['bilibili']
 focus = config['bilibili-focus']
 focus_map = dict(focus.items())
 DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])

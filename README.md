@@ -2,11 +2,12 @@
 
 # 功能
 
-2个程序入口
+程序入口
 - up.py: 拉取 up 主投稿数据
   - 全选模式（拉取config.ini 中配置的全部人的相关投稿）
   - 个人模式（根据nickname拉取指定up主的投稿） 
 - feed.py: 拉取 feed 流，也即首页、各分区页面数据
+- search.py: 根据up主名字/up主id、关键字，搜索up主相关投稿
 
 # 使用方法
 
@@ -33,6 +34,17 @@ python3 feed.py
 ```
 
 没有执行参数，而是进入程序体内，根据提示输入参数，控制流程。
+
+### search.py
+
+```commandline
+python3 search.py
+```
+
+- -h: 查看帮助
+- -u: up主名字
+- -id: up主id
+- -k: 搜索关键字
 
 
 # 示例
@@ -72,3 +84,7 @@ feed.py 演示
 ![](docs/image/pic3.png)
 
 ![](docs/image/pic4.png)
+
+search.py 演示
+
+![](docs/image/pic5.png)
