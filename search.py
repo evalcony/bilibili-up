@@ -46,7 +46,7 @@ def parse_result(html_text):
     return res_list
 
 def work(args):
-    uname = args.u
+    uname = args.name
     keyword = args.k
     mid = args.id
 
@@ -64,7 +64,7 @@ def work(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('-u', type=str, default='', help='up主名字')
+    parser.add_argument('-name', type=str, default='', help='up主名字')
     parser.add_argument('-k', type=str, default='', help='搜索关键词')
     parser.add_argument('-id', type=str, default='', help='指定up主mid')
 

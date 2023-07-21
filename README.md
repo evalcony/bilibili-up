@@ -42,7 +42,7 @@ python3 search.py
 ```
 
 - -h: 查看帮助
-- -u: up主名字
+- -name: up主名字
 - -id: up主id
 - -k: 搜索关键字
 
