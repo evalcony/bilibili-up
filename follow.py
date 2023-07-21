@@ -9,8 +9,8 @@ from web_interface_single import Wbi
 
 # read config
 config = utils.read_config('config.ini')
-focus = config['bilibili-focus']
-focus_map = dict(focus.items())
+follow = config['bilibili-follow']
+follow_map = dict(follow.items())
 DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
 DEFAULT_D = int(config['cfg']['default_d'])
 DEFAULT_N = int(config['cfg']['default_n'])
@@ -22,7 +22,7 @@ class HttpThread(threading.Thread):
         self.args = args
 
     def run(self):
-        res = get_data(focus_map.get(self.name))
+        res = get_data(follow_map.get(self.name))
         self.args.name = self.name
         bilibili_json_process(res, self.args)
 
@@ -80,7 +80,7 @@ def bilibili_json_process(str_data, args):
         print('')
 
 def print_all_nickname():
-    name_list = focus_map.keys()
+    name_list = follow_map.keys()
     i = 1
     for name in name_list:
         print('{}.{}'.format(i, name))
@@ -93,7 +93,7 @@ def work(args):
         return
 
     if args.name != '':
-        mid = focus_map.get(args.name)
+        mid = follow_map.get(args.name)
         if mid == None:
             print('参数错误 and 未找到数据')
             return
@@ -105,7 +105,7 @@ def work(args):
         bilibili_json_process(res, args)
 
     else:
-        for name in focus_map.keys():
+        for name in follow_map.keys():
             thread = HttpThread(name, args)
             thread.start()
 
