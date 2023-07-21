@@ -20,7 +20,6 @@ def favor_list_req(mid):
     }
     query = urllib.parse.urlencode(params)
     url = 'https://api.bilibili.com/x/v3/fav/folder/created/list-all?'+query
-    print(url)
 
     resp = requests.get(url, headers=header)
     return resp.text
@@ -38,9 +37,10 @@ def parse_favor_list(html_data):
         }
         res_list.append(c)
 
-    print(tabulate(res_list, tablefmt="plain"))
-
     return res_list
+
+def print_list(res_list):
+    print(tabulate(res_list, tablefmt="plain"))
 
 def favor_req(media_id):
     params = {
@@ -75,19 +75,29 @@ def parse_favor(html_data):
         }
         res_list.append(c)
 
-    print(tabulate(res_list, tablefmt="plain"))
-
     return res_list
 
 def works(args):
     mid = utils.read_env('BILI_MID')
     if args.l:
         html_text = favor_list_req(mid)
-        parse_favor_list(html_text)
+        favor_list = parse_favor_list(html_text)
+        print_list(favor_list)
+
     if args.f != '':
         media_id = args.f
         html_text = favor_req(media_id)
-        parse_favor(html_text)
+        res_list = parse_favor(html_text)
+        print_list(res_list)
+    else:
+        # 如果不指定收藏夹id，则查看默认收藏夹
+        html_text = favor_list_req(mid)
+        res_list = parse_favor_list(html_text)
+        media_id = res_list[0]['id']
+
+        html_text = favor_req(media_id)
+        res_list = parse_favor(html_text)
+        print_list(res_list)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

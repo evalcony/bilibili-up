@@ -8,6 +8,7 @@
   - 个人模式（根据nickname拉取指定up主的投稿） 
 - feed.py: 拉取 feed 流，也即首页、各分区页面数据
 - search.py: 根据up主名字/up主id、关键字，搜索up主相关投稿
+- favor.py: 查看个人收藏夹
 
 # 使用方法
 
@@ -54,6 +55,16 @@ python3 search.py
 - -name: up主名字
 - -id: up主id
 - -k: 搜索关键字
+
+### favor.py
+
+```commandline
+python3 favor.py
+```
+
+- -h: 查看帮助
+- -l: 个人收藏夹列表，收藏夹id
+- -f: 根据收藏夹id查看收藏夹内容
 
 
 # 示例
