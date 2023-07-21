@@ -11,6 +11,15 @@
 
 # 使用方法
 
+在系统环境变量中设置 BILI_COOKIE
+```commandline
+export BILI_COOKIE="你的 bilibili cookie"
+```
+设置自己的bilibili mid
+```commandline
+export BILI_MID="你的 bilibili mid"
+```
+
 ### up.py
 
 ```commandline
