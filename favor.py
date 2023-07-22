@@ -2,13 +2,11 @@ import argparse
 import json
 import urllib
 
-import pyparsing
 import requests
 from tabulate import tabulate
-from colorize_output import Colorize
 
 import utils
-
+from colorize_output import Colorize
 
 config = utils.read_config('config.ini')
 DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])

@@ -10,6 +10,9 @@ from search_uid import get_uid
 from web_interface_single import Wbi
 
 
+# 读取配置
+config = utils.read_config('config.ini')
+DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
 # 输出颜色
 colorizer = Colorize()
 
@@ -40,9 +43,14 @@ def parse_result(html_text):
 
     res_list = []
     for v in vlist:
+
+        title = v['title']
+        max_title_len = len(title) if len(title) < DEFAULT_TITLE_LEN else DEFAULT_TITLE_LEN
+        title = title[:max_title_len]
+
         c = {
             'author': v['author'],
-            'title': v['title'],
+            'title': title,
             'play': utils.num_shorten(v['play']),
             'url': 'https://www.bilibili.com/video/'+v['bvid'],
         }
