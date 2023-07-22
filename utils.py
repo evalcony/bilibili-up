@@ -64,3 +64,18 @@ def remove_highlight_html(text):
             break
         text = text[:pos] + text[pos + len(pattern):]
     return text
+
+def duration_trans(dur):
+    durs = dur.split(':')
+    h = int(durs[0])
+    s = durs[1]
+    m = h % 60
+    h = int((h-m)/60)
+    res = ''
+    if h != 0:
+        res += str(h) + ':'
+    if m != '' and m != '':
+        res += str(m) + ':'
+    res += s
+    return res
+

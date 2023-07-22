@@ -48,6 +48,7 @@ def parse_result(html_text):
         c = {
             'author': v['author'],
             'title': title,
+            'duration': utils.duration_trans(v['duration']),
             'play': utils.num_shorten(v['play']),
             'url': 'https://www.bilibili.com/video/'+v['bvid'],
         }
@@ -70,6 +71,7 @@ def work(args):
     headers = {
         'author': 'author',
         'title': 'title',
+        'duration': '时长',
         'play': '播放量',
         'url': 'url',
     }
