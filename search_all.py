@@ -13,10 +13,10 @@ from web_interface_single import Wbi
 config = utils.read_config('config.ini')
 DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
 
-def search_req(keyword):
+def search_req(keyword, page_num):
     params = {
         'keyword': keyword,
-        'pn': 1,
+        'pn': page_num,
         'page_size': 42,
         '__refresh__': 'true',
 
@@ -61,7 +61,7 @@ def work(args):
     if keyword == '':
         return
 
-    html_text = search_req(keyword)
+    html_text = search_req(keyword, args.p)
     res_list = parse_result(html_text)
 
     # 颜色输出
@@ -81,6 +81,7 @@ def work(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('-k', type=str, default='', help='搜索关键词')
+    parser.add_argument('-p', type=str, default='1', help='页码')
     args = parser.parse_args()
 
     work(args)
