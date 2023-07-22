@@ -5,9 +5,14 @@ import urllib
 import pyparsing
 import requests
 from tabulate import tabulate
+from colorize_output import Colorize
 
 import utils
 
+
+config = utils.read_config('config.ini')
+DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
+colorizer = Colorize()
 
 def favor_list_req(mid):
     params = {
@@ -40,6 +45,9 @@ def parse_favor_list(html_data):
     return res_list
 
 def print_list(res_list):
+
+    colorizer.colorize_list(res_list)
+
     print(tabulate(res_list, tablefmt="plain"))
 
 def favor_req(media_id):
@@ -67,10 +75,14 @@ def parse_favor(html_data):
 
     res_list = []
     for m in medias_list:
+
+        title = m['title']
+        max_title_len = len(title) if len(title) < DEFAULT_TITLE_LEN else DEFAULT_TITLE_LEN
+        title = title[:max_title_len]
         c = {
             'upper-name': m['upper']['name'],
             'pubtime': utils.timestamp_2_date(m['pubtime']),
-            'title': m['title'],
+            'title': title,
             'url': 'https://www.bilibili.com/video/' + m['bvid'],
         }
         res_list.append(c)

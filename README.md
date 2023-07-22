@@ -114,8 +114,6 @@ feed.py 演示
 
 ![](docs/image/pic3.png)
 
-![](docs/image/pic4.png)
-
 search.py 演示
 
 ![](docs/image/pic5.png)
