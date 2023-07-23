@@ -16,7 +16,7 @@ DEFAULT_TITLE_LEN = int(config['cfg']['default_title_len'])
 def search_req(keyword, page_num):
     params = {
         'keyword': keyword,
-        'pn': page_num,
+        'page': page_num,
         'page_size': 42,
         '__refresh__': 'true',
 

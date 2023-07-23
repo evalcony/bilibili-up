@@ -76,6 +76,7 @@ python3 search_all.py
 
 - -h: 查看帮助
 - -k: 搜索关键字
+- -p: 翻页页码
 
 
 # 示例
